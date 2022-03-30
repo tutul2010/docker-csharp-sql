@@ -14,8 +14,8 @@ WORKDIR /app
 COPY . .
 #COPY ["qotd-csharp.csproj", "./qotd-csharp/"]
 #RUN dotnet restore "./qotd-csharp/qotd-csharp.csproj"
-WORKDIR "/app/src/qotd-csharp"
-RUN dotnet restore
+WORKDIR "/app/qotd-csharp"
+RUN dotnet restore 
 #COPY . .
 #WORKDIR "/src/."
 RUN dotnet build "./qotd-csharp.csproj" -c Release -o /app/build
