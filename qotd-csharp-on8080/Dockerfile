@@ -12,7 +12,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY . .
 #COPY "qotd-csharp.csproj", "./"
-RUN dotnet restore "./qotd-csharp.csproj"
+RUN dotnet restore "./src/qotd-csharp.csproj"
 COPY . .
 WORKDIR "/src/."
 RUN dotnet build "qotd-csharp.csproj" -c Release -o /app/build
