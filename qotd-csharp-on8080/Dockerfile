@@ -13,9 +13,9 @@ WORKDIR /src
 COPY . .
 #COPY "qotd-csharp.csproj", "./"
 RUN dotnet restore "/src/qotd-csharp-on8080/qotd-csharp.csproj"
-COPY . .
-WORKDIR "/src/."
-RUN dotnet build "qotd-csharp.csproj" -c Release -o /app/build
+#COPY . .
+#WORKDIR "/src/."
+RUN dotnet build "/src/qotd-csharp-on8080/qotd-csharp.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "qotd-csharp.csproj" -c Release -o /app/publish
