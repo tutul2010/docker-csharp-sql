@@ -1,6 +1,5 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 #EXPOSE 80
@@ -10,15 +9,12 @@ EXPOSE 8080
 ENV ASPNETCORE_URLS="http://*:8080"
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /app
+WORKDIR /src
+COPY ["qotd-csharp.csproj", "./"]
+RUN dotnet restore "./qotd-csharp.csproj"
 COPY . .
-#COPY ["qotd-csharp.csproj", "./qotd-csharp/"]
-#RUN dotnet restore "./qotd-csharp/qotd-csharp.csproj"
-WORKDIR "/app/qotd-csharp"
-RUN dotnet restore "./app/qotd-csharp/qotd-csharp.csproj"
-#COPY . .
-#WORKDIR "/src/."
-RUN dotnet build "./qotd-csharp.csproj" -c Release -o /app/build
+WORKDIR "/src/."
+RUN dotnet build "qotd-csharp.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "qotd-csharp.csproj" -c Release -o /app/publish
