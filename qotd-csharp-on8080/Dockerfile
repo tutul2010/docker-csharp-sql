@@ -10,12 +10,15 @@ EXPOSE 8080
 ENV ASPNETCORE_URLS="http://*:8080"
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src
-COPY ["qotd-csharp.csproj", "./qotd-csharp/"]
-RUN dotnet restore "./qotd-csharp/qotd-csharp.csproj"
+WORKDIR /app
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "qotd-csharp.csproj" -c Release -o /app/build
+#COPY ["qotd-csharp.csproj", "./qotd-csharp/"]
+#RUN dotnet restore "./qotd-csharp/qotd-csharp.csproj"
+WORKDIR "/app/src/qotd-csharp"
+RUN dotnet restore
+#COPY . .
+#WORKDIR "/src/."
+RUN dotnet build "./qotd-csharp.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "qotd-csharp.csproj" -c Release -o /app/publish
