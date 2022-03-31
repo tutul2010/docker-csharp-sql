@@ -47,7 +47,8 @@ namespace qotd_csharp.Controllers
 
         [HttpGet("version")]
         public string Version() {
-                 return "5.0.0";
+                 //return "5.0.0";
+                    return "OSDescription-"+System.Runtime.InteropServices.RuntimeInformation.OSDescription+ " OSArchitecture-" + System.Runtime.InteropServices.RuntimeInformation.OSArchitecture + " FrameworkDescription-"+ System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
         }
 
         [HttpGet("writtenin")]
